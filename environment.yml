@@ -1,0 +1,62 @@
+# =============================================================================
+# DHES — Decoupled Hierarchical Equation System
+# Conda environment reproducing the setup used for the reported results.
+#
+# Environment name matches the paper: `gpu_work`
+# Hardware: single NVIDIA RTX 5080 (16 GB, Blackwell / sm_120)
+#
+# Create:
+#     conda env create -f environment.yml
+#     conda activate gpu_work
+#
+# NOTE ON CUDA
+#   The RTX 5080 requires a CUDA 12.4+ build of PyTorch. This file installs
+#   torch via pip from the official CUDA 12.4 wheel index (see the pip block
+#   below). If your GPU or driver differs, adjust the --extra-index-url and the
+#   torch version accordingly.
+# =============================================================================
+name: gpu_work
+
+channels:
+  - conda-forge
+
+dependencies:
+  # ---- interpreter ----
+  - python=3.10
+
+  # ---- build/runtime basics from conda ----
+  - pip=24.2
+
+  # ---- everything else is pinned via pip for exact parity with the paper ----
+  - pip:
+      # PyTorch built for CUDA 12.4 (RTX 5080 / Blackwell).
+      # Keep this index URL so pip does not fall back to a CPU-only wheel.
+      - --extra-index-url https://download.pytorch.org/whl/cu124
+      - torch==2.5.1
+
+      # core deep-learning stack
+      - transformers==4.46.2
+      - accelerate==1.1.1
+      - peft==0.19.1
+      - safetensors==0.4.5
+      - tokenizers==0.20.3
+      - huggingface-hub==0.26.2
+
+      # dataset handling
+      - datasets==3.1.0
+
+      # execution-based evaluation (HumanEval/+, MBPP/+)
+      - evalplus==0.3.1
+
+      # numerics, tables, figures
+      - numpy==1.26.4
+      - pandas==2.2.3
+      - scipy==1.14.1
+      - matplotlib==3.9.2
+
+      # spreadsheet I/O for results tables
+      - openpyxl==3.1.5
+
+      # utilities
+      - tqdm==4.67.0
+      - pyyaml==6.0.2

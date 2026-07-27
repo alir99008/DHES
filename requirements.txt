@@ -1,0 +1,50 @@
+# =============================================================================
+# DHES — Decoupled Hierarchical Equation System
+# Parameter-efficient fine-tuning of Qwen2.5-Coder-1.5B on CodeAlpaca-20K
+#
+# Reproducibility environment (Python 3.10, single NVIDIA RTX 5080, 16 GB).
+# Versions are pinned to those used for the reported results.
+#
+# Install:
+#     python -m venv .venv && source .venv/bin/activate
+#     pip install --upgrade pip
+#     pip install -r requirements.txt
+#
+# NOTE ON PYTORCH + CUDA
+#   The torch build must match your CUDA/driver. The RTX 5080 (Blackwell,
+#   sm_120) needs a CUDA 12.4+ build of PyTorch. Install torch FIRST from the
+#   official index, then the rest of this file:
+#
+#     pip install torch==2.5.1 --index-url https://download.pytorch.org/whl/cu124
+#     pip install -r requirements.txt
+#
+#   If pip resolves a CPU-only torch, uninstall it and use the command above.
+# =============================================================================
+
+# ---- core deep-learning stack ----
+torch==2.5.1
+transformers==4.46.2
+accelerate==1.1.1
+peft==0.19.1
+safetensors==0.4.5
+tokenizers==0.20.3
+huggingface-hub==0.26.2
+
+# ---- dataset handling ----
+datasets==3.1.0
+
+# ---- execution-based evaluation (HumanEval / HumanEval+ / MBPP / MBPP+) ----
+evalplus==0.3.1
+
+# ---- numerics, tables, and figures ----
+numpy==1.26.4
+pandas==2.2.3
+scipy==1.14.1
+matplotlib==3.9.2
+
+# ---- spreadsheet I/O for results tables ----
+openpyxl==3.1.5
+
+# ---- progress + config utilities ----
+tqdm==4.67.0
+pyyaml==6.0.2
